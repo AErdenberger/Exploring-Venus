@@ -83,4 +83,29 @@ class OrbiterFileRepositoryTest {
         assertEquals(6, actual.getOrbiterId());
     }
 
+    @Test
+    void shouldUpdateExisting() throws DataAccessException {
+        Orbiter orbiter = new Orbiter();
+        orbiter.setOrbiterId(3);
+        orbiter.setName("Shuttle-2");
+        orbiter.setType(OrbiterType.SHUTTLE);
+        orbiter.setSponsor("Test Sponsor");
+
+        boolean success = repository.update(orbiter);
+        assertTrue(success);
+
+        Orbiter actual = repository.findById(3);
+        assertNotNull(actual);
+        assertEquals("Shuttle-2", actual.getName());
+        assertEquals("Test Sponsor", actual.getSponsor());
+    }
+
+    @Test
+    void shouldNOtUpdateNotExisting() throws DataAccessException {
+        Orbiter orbiter = new Orbiter();
+        orbiter.setOrbiterId(10000);
+
+        boolean actual = repository.update(orbiter);
+        assertFalse(actual);
+    }
 }
