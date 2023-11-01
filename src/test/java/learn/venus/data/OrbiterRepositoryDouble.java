@@ -16,6 +16,9 @@ public class OrbiterRepositoryDouble implements OrbiterRepository{
         moduleWithDock.setName("Mod with Dock");
         moduleWithDock.setType(OrbiterType.MODULE_WITH_DOCK);
         orbiters.add(moduleWithDock);
+        orbiters.add(new Orbiter(2, "Astro #1", OrbiterType.ASTRONAUT, null));
+        orbiters.add(new Orbiter(3, "Astro #2", OrbiterType.ASTRONAUT, null));
+        orbiters.add(new Orbiter(4, "Shuttle #1", OrbiterType.SHUTTLE, null));
     }
     @Override
     public List<Orbiter> findAll() throws DataAccessException {

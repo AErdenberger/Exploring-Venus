@@ -6,6 +6,16 @@ public class Orbiter {
     private int orbiterId;
     private String sponsor;
 
+    public Orbiter() {
+    }
+
+    public Orbiter(int orbiterId, String name, OrbiterType type, String sponsor) {
+        this.type = type;
+        this.name = name;
+        this.orbiterId = orbiterId;
+        this.sponsor = sponsor;
+    }
+
     public OrbiterType getType() {
         return type;
     }
