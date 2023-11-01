@@ -76,4 +76,16 @@ class OrbiterServiceTest {
                 service.update(new Orbiter(3, "     ", OrbiterType.ASTRONAUT, null));
         assertFalse(result.isSuccessful());
     }
+
+    @Test
+    void shouldDelete() throws DataAccessException {
+        OrbiterResult result = service.deleteByID(3);
+        assertTrue(result.isSuccessful());
+    }
+
+    @Test
+    void shouldNotDeleteDock() throws DataAccessException {
+        OrbiterResult result = service.deleteByID(1);
+        assertFalse(result.isSuccessful());
+    }
 }
