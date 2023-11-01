@@ -31,7 +31,9 @@ public class OrbiterService {
             return result;
         }
 
-        result = validateDomain(orbiter);
+        Map<OrbiterType, Integer> counts = countTypes();
+        counts.put(orbiter.getType(), counts.get(orbiter.getType()) + 1);
+        result = validateDomain(counts);
         if(!result.isSuccessful()){
             return result;
         }
@@ -68,7 +70,26 @@ public class OrbiterService {
     }
 
     public OrbiterResult deleteByID(int orbiterID) throws DataAccessException {
+        OrbiterResult result = new OrbiterResult();
+        Orbiter orbiter = repository.findById((orbiterID));
+        if(orbiter == null){
+            result.addErrorMessage("Could not find OrbiterID: " + orbiterID);
+            return result;
+        }
 
+        Map<OrbiterType, Integer> counts = countTypes();
+        counts.put(orbiter.getType(), counts.get(orbiter.getType()) - 1);
+        result = validateDomain(counts);
+        if(!result.isSuccessful()){
+            return result;
+        }
+
+        boolean success = repository.deleteById(orbiterID);
+        if(!success){
+            result.addErrorMessage("Could not find OrbiterID " + orbiter.getOrbiterId());
+        }
+
+        return result;
     }
 
     private Map<OrbiterType, Integer> countTypes() {
@@ -122,7 +143,7 @@ public class OrbiterService {
         return result;
     }
 
-    private OrbiterResult validateDomain(HashMap<OrbiterType, Integer> counts) throws DataAccessException {
+    private OrbiterResult validateDomain(Map<OrbiterType, Integer> counts) throws DataAccessException {
 
         int astroCount = counts.get(OrbiterType.ASTRONAUT);
         int shuttleCount = counts.get(OrbiterType.SHUTTLE);
@@ -131,11 +152,11 @@ public class OrbiterService {
 
         OrbiterResult result = new OrbiterResult();
 
-        if(astroCount + 1 > modCount * 4 + modDockCount * 2){
+        if(astroCount > modCount * 4 + modDockCount * 2){
             result.addErrorMessage("No room for another astronaut");
         }
 
-        if(shuttleCount + 1 > modDockCount){
+        if(shuttleCount > modDockCount){
             result.addErrorMessage("No room for another shuttle");
         }
 
