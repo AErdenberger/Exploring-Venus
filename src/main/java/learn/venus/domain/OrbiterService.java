@@ -17,6 +17,10 @@ public class OrbiterService {
         this.repository = repository;
     }
 
+    public List<Orbiter> findByType(OrbiterType type) throws DataAccessException {
+        return repository.findByType(type);
+    }
+
     /*
     add:
     1. Can't be null

@@ -38,7 +38,14 @@ public class OrbiterRepositoryDouble implements OrbiterRepository{
 
     @Override
     public List<Orbiter> findByType(OrbiterType type) throws DataAccessException {
-        return null;
+        ArrayList<Orbiter> result = new ArrayList<>();
+        for(Orbiter o: orbiters){
+            if(type == o.getType()){
+                result.add(o);
+            }
+        }
+
+        return result;
     }
 
     @Override

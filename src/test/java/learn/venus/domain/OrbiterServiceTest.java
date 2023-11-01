@@ -8,14 +8,19 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.crypto.Data;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrbiterServiceTest {
 
     OrbiterService service = new OrbiterService(new OrbiterRepositoryDouble());
-    @Test
-    void shouldAddOrbiter(){
 
+    @Test
+    void shouldFindByType() throws DataAccessException {
+        List<Orbiter> astronauts = service.findByType(OrbiterType.ASTRONAUT);
+        assertNotNull(astronauts);
+        assertEquals(2, astronauts.size());
     }
 
     @Test
