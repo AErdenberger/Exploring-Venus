@@ -55,4 +55,25 @@ class OrbiterServiceTest {
                 new Orbiter(0, "Test Shuttle", OrbiterType.SHUTTLE, null));
         assertTrue(result.isSuccessful());
     }
+
+    @Test
+    void shouldUpdate() throws DataAccessException {
+        OrbiterResult result =
+                service.update(new Orbiter(3, "Updated Astro", OrbiterType.ASTRONAUT, null));
+        assertTrue(result.isSuccessful());
+    }
+
+    @Test
+    void shouldNotUpdateType() throws DataAccessException {
+        OrbiterResult result =
+                service.update(new Orbiter(3, "Updated Astro", OrbiterType.VENUSIAN, null));
+        assertFalse(result.isSuccessful());
+    }
+
+    @Test
+    void shouldNotUpdateEmptyName() throws DataAccessException {
+        OrbiterResult result =
+                service.update(new Orbiter(3, "     ", OrbiterType.ASTRONAUT, null));
+        assertFalse(result.isSuccessful());
+    }
 }

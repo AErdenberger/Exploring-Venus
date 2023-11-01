@@ -49,11 +49,11 @@ public class OrbiterRepositoryDouble implements OrbiterRepository{
 
     @Override
     public boolean update(Orbiter orbiter) throws DataAccessException {
-        return false;
+        return true;
     }
 
     @Override
     public boolean deleteById(int orbiterID) throws DataAccessException {
-        return false;
+        return true;
     }
 }

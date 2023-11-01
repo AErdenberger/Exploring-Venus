@@ -57,7 +57,11 @@ public class OrbiterService {
             return result;
         }
 
-        repository.update(orbiter);
+        boolean success = repository.update(orbiter);
+        if(!success){
+            result.addErrorMessage("Could not find OrbiterID " + orbiter.getOrbiterId());
+        }
+
         return result;
     }
 
