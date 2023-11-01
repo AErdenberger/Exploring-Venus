@@ -20,7 +20,7 @@ public class OrbiterService {
     1. Can't be null
     2. name required
     3. modules can hold 4 astronauts
-    4. module with a dock can hold 4 astronauts and 1 shuttle
+    4. module with a dock can hold 2 astronauts and 1 shuttle
      */
 
     public OrbiterResult add(Orbiter orbiter) throws DataAccessException {
