@@ -1,6 +1,11 @@
 package learn.venus.ui;
 
+import learn.venus.data.DataAccessException;
 import learn.venus.domain.OrbiterService;
+import learn.venus.models.Orbiter;
+import learn.venus.models.OrbiterType;
+
+import java.util.List;
 
 public class Controller {
 
@@ -12,13 +17,22 @@ public class Controller {
         this.view = view;
     }
 
-    public void run(){
+    public void run() {
+        try {
+            runMenu();
+        } catch(DataAccessException ex){
+            view.printHeader("Fatal Error: " + ex);
+        }
+
+    }
+
+    private void runMenu() throws DataAccessException{
         MenuOption option;
         do {
             option = view.displayMenuAndSelect();
             switch(option){
                 case EXIT:
-                    System.out.println(option.getTitle());
+                    view.printHeader("Goodbye.");
                     break;
                 case DISPLAY_ORBITERS:
                     displayOrbiters();
@@ -36,8 +50,10 @@ public class Controller {
         } while(option != MenuOption.EXIT);
     }
 
-    private void displayOrbiters() {
+    private void displayOrbiters() throws DataAccessException {
         view.printHeader(MenuOption.DISPLAY_ORBITERS.getTitle());
+        OrbiterType type = view.readOrbiterType();
+        List<Orbiter> orbiters = service.findByType(type);
     }
 
     private void createOrbiter() {
