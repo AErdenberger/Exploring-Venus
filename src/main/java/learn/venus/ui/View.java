@@ -21,7 +21,36 @@ public class View {
     }
 
     private String readString(String prompt){
+        System.out.print(prompt);
+        return console.nextLine();
+    }
 
+    private String readRequiredString(String prompt){
+        String result = null;
+        do {
+            result = readString(prompt).trim();
+            if(result.isBlank()){
+                System.out.println("input is required");
+            }
+        } while(!result.isBlank());
+        return result;
+    }
+
+    private int readInt(String prompt){
+        int result = 0;
+        boolean isValid = false;
+        do {
+            String value = readRequiredString(prompt);
+            try{
+                result = Integer.parseInt(value);
+                isValid = true;
+            } catch (NumberFormatException ex) {
+                System.out.println("Value must be a number.");
+            }
+
+        } while (!isValid);
+
+        return result;
     }
 
 }
