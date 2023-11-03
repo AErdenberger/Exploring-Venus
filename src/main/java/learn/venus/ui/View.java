@@ -11,7 +11,8 @@ public class View {
         for(int i = 0; i < values.length; i++) {
             System.out.printf("%s: %s%n", i, values[i].getTitle());
         }
-        return MenuOption.EXIT;
+        int index = readInt("Select [0-4]: ", 0, 4);
+        return values[index];
     }
 
     public void printHeader(String message){
@@ -29,10 +30,10 @@ public class View {
         String result = null;
         do {
             result = readString(prompt).trim();
-            if(result.isBlank()){
+            if(result.isEmpty()){
                 System.out.println("input is required");
             }
-        } while(!result.isBlank());
+        } while(result.isEmpty());
         return result;
     }
 
