@@ -53,4 +53,16 @@ public class View {
         return result;
     }
 
+    private int readInt(String prompt, int min, int max){
+        int result = 0;
+        do {
+            result = readInt(prompt);
+            if(result < min || result > max){
+                System.out.printf("Value must be between %s and %s%n", min, max);
+            }
+        } while (result < min || result > max);
+
+        return result;
+    }
+
 }
